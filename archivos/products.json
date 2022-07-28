@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Cuaderno",
+    "price": 440.25,
+    "id": 1
+  },
+  {
+    "name": "Boligrafo bic",
+    "price": 95.4,
+    "id": 2
+  },
+  {
+    "name": "Block de hojas rayadas x 500",
+    "price": 1250.3,
+    "id": 3
+  }
+]
