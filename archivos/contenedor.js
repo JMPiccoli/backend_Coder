@@ -2,6 +2,19 @@ const fs = require("fs")
 let nameFile = "./products.json"
 let products = []
 
+const express = require("express");
+const { Router } = express
+
+const app = express();
+const router = Router()
+//const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
+
+const server = app.listen(PORT, () => {
+  console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
+});
+
+server.on("error", (error) => console.log(`Error en servidor ${error}`));
 
 class Contenedor{
 
@@ -120,18 +133,35 @@ const product3 = {
 	price: 1250.30,
 };
 
-const archivo = new Contenedor(nameFile);
+app.get('/productos', (req, res)=> {
+    (async () => {
+        await productos.getAll().then((response) => {
+            res.send(response);
+        });
+    })();
+});
 
-async function main() {
-	await archivo.getData(nameFile);
-	await archivo.save(product1);
-	await archivo.save(product2);
-	await archivo.save(product3);
+app.get('/productoRandom', (req, res)=> {
+    (async () => {
+        await productos.getAll().then((response) => {
+            let random = Math.floor(Math.random() * response.length);
+            res.send(response[random]);
+        });
+    })();
+}); 
+
+//const archivo = new Contenedor(nameFile);
+
+//async function main() {
+	//await archivo.getData(nameFile);
+	//await archivo.save(product1);
+	//await archivo.save(product2);
+	//await archivo.save(product3);
 	// await archivo.getAll();
 	//await archivo.getById(4);
 	//await archivo.deleteAll();
 	//await archivo.deleteById(1);
-	console.log("Fin de la ejecucion");
-}
+	//console.log("Fin de la ejecucion");
+//}
 
-main();
+//main();
